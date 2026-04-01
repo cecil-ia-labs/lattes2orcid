@@ -68,13 +68,29 @@ describe("convertLattesXmlBuffer", () => {
 });
 
 describe("sanitizeLattesXmlBuffer", () => {
-  it("removes direct identifiers from the private raw fixture", async () => {
-    const rawBuffer = await readFixtureBuffer("../../source/0645206667083920.xml");
+  it("removes direct identifiers from a raw XML sample", async () => {
+    const rawBuffer = Buffer.from(
+      `<?xml version="1.0" encoding="UTF-8"?>
+<CURRICULO-VITAE>
+  <DADOS-GERAIS
+    NOME-COMPLETO="João da Silva"
+    NOME-EM-CITACOES-BIBLIOGRAFICAS="SILVA, J.;JOÃO DA SILVA"
+    CPF="03403635929"
+    E-MAIL="juninhodeluca@gmail.com"
+    TELEFONE-CELULAR="48999999999"
+    HOME-PAGE="https://example.com/perfil"
+  />
+</CURRICULO-VITAE>`,
+      "utf8"
+    );
     const sanitized = await sanitizeLattesXmlBuffer(rawBuffer);
 
     expect(sanitized).not.toContain("03403635929");
     expect(sanitized).not.toContain("juninhodeluca@gmail.com");
+    expect(sanitized).not.toContain("João da Silva");
     expect(sanitized).toContain("privado@example.test");
     expect(sanitized).toContain("Pesquisador Exemplo");
+    expect(sanitized).toContain("00000000000");
+    expect(sanitized).toContain("https://example.test");
   });
 });

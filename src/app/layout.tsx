@@ -16,7 +16,7 @@ const bodyFont = Source_Serif_4({
 export const metadata: Metadata = {
   title: "Lattes2BibTeX",
   description:
-    "Converta currículos XML da Plataforma Lattes em arquivos BibTeX com foco em privacidade e importação no ORCID."
+    "Converta o XML do Lattes em BibTeX e reduza horas de trabalho manual na importação para o ORCID."
 };
 
 export default function RootLayout({

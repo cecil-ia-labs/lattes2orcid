@@ -75,7 +75,6 @@ npm run sanitize:fixture
 
 ## Fixtures e dados sensíveis
 
-- O XML bruto pessoal permanece em `source/` e é ignorado pelo Git.
 - O fixture público principal está em `fixtures/lattes/real/sanitized-lattes.xml`.
 - Fixtures sintéticos complementam categorias não presentes no XML real sanitizado.
 
@@ -92,12 +91,28 @@ A suíte atual cobre:
 
 ## Status do fluxo ORCID
 
-- Verificação manual com uma conta ORCID descartável: `pendente`
+- Verificação manual com uma conta ORCID descartável: `OK`
+- Verificação manual com uma conta ORCID real: `OK`
 
 Mesmo com o parser e os testes automatizados estáveis, a aceitação final do projeto depende dessa validação manual do fluxo real de importação.
 
+## Licença e isenção de responsabilidade
+
+Este projeto é distribuído sob a licença `MIT`. Em termos práticos:
+
+- o software é gratuito e open-source
+- o uso acontece por conta e risco de quem o utiliza
+- não há qualquer garantia de funcionamento contínuo, precisão total dos dados convertidos ou adequação a um caso específico
+- os mantenedores não se responsabilizam por perda de dados, falhas de importação, inconsistências bibliográficas, indisponibilidade, danos diretos ou indiretos, ou qualquer consequência decorrente do uso do software
+
+Antes de importar dados em qualquer plataforma, mantenha uma cópia do XML original, revise o `BibTeX` gerado e valide manualmente os registros mais sensíveis.
+
 ## Limitações atuais
 
-- `BibTeX -> Lattes XML` ainda não faz parte do v1.
-- O upload aceita apenas XML bruto, não ZIP.
-- A cobertura bibliográfica é guiada pelo XSD local versionado no repositório.
+### To-do:
+
+- [ ] `BibTeX -> Lattes XML` ainda não faz parte do v1.
+- [ ] O upload aceita apenas XML bruto, não ZIP.
+- [ ] A cobertura bibliográfica é guiada pelo XSD local versionado no repositório.
+- [ ] No momento, a única seção que pode ser importada para o ORCID é o BibTeX com os dados das publicações e artigos, enquanto as demais do XML ainda não são suportadas e mas podem ser igualmente extensas e tediosas, como formação acadêmica, experiência profissional, orientações, participações em eventos, prêmios e títulos. etc.
+- [ ] O fluxo de importação para o ORCID é manual, exigindo que o usuário baixe o BibTeX e importe na plataforma do ORCID, onde pode haver erros de parsing ou campos não mapeados que precisam ser revisados e corrigidos manualmente. O ideal seria ter uma integração direta com a API do ORCID para enviar os dados convertidos automaticamente, mas isso exigiria autenticação e autorização do usuário, o que vai contra o modelo de privacidade sem cookies e sem banco de dados adotado neste projeto. Desse modo seria possível implementar uma interface que se integre diretamente com o ORCID, mas isso exigiria autenticação e autorização do usuário, o que vai contra o modelo de privacidade sem cookies e sem banco de dados adotado neste projeto. Por ora. ~~O que não é admissível é milhões de pesquisadores perderem horas importantes ao lado da família ou realizando seu trabalho, para ficarem sentados, copiando e colando dados manualmente~~

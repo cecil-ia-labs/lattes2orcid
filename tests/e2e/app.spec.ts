@@ -15,7 +15,7 @@ test("shows validation feedback and then completes a real conversion", async ({
 }) => {
   await page.goto("/");
 
-  await expect(page.getByRole("heading", { name: "Lattes2BibTeX" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Lattes 2 ORCID" })).toBeVisible();
 
   await page.getByTestId("convert-button").click();
   await expect(

@@ -117,31 +117,29 @@ export function HomePage() {
   return (
     <PageShell>
       <HeroSection>
-        <Eyebrow>Interoperabilidade acadêmica sem cópia manual</Eyebrow>
+        <Eyebrow>Foque no que realmente importa, sem retrabalho</Eyebrow>
         <HeroGrid>
           <HeroText>
-            <HeroTitle>Lattes2BibTeX</HeroTitle>
+            <HeroTitle>Lattes 2 ORCID</HeroTitle>
             <HeroLead>
-              Converta o XML da Plataforma Lattes em um arquivo BibTeX pronto
-              para o fluxo de importação do ORCID.
+              Converta seus artigos e publicações da Plataforma Lattes para o ORCID de forma rápida, prática e totalmente segura.
             </HeroLead>
             <HeroCopy>
-              O processamento acontece sob demanda, sem cookies e sem
-              persistência do arquivo enviado. O foco do v1 é extrair toda a
-              produção bibliográfica compatível com o esquema oficial do
-              currículo Lattes.
+              Envie o XML, gere o arquivo e siga em frente. Nada de copiar
+              referência por referência. O processamento acontece sem cookies e
+              sem guardar o conteúdo após a conversão.
             </HeroCopy>
           </HeroText>
           <HeroCard>
-            <HeroCardTitle>Como usar</HeroCardTitle>
+            <HeroCardTitle>Como funciona</HeroCardTitle>
             <InstructionList>
-              <li>Exporte seu currículo em XML pela Plataforma Lattes.</li>
-              <li>Envie o arquivo nesta página.</li>
-              <li>Baixe o BibTeX gerado e importe no ORCID.</li>
+              <li>Baixe o XML do seu currículo na Plataforma Lattes.</li>
+              <li>Envie o arquivo aqui.</li>
+              <li>Baixe o `.bib` e importe no ORCID.</li>
             </InstructionList>
             <PrivacyNote>
-              Limite padrão de upload: <strong>25 MB</strong>. O conteúdo não é
-              salvo após a resposta.
+              Upload de até <strong>25 MB</strong>. O arquivo existe só durante
+              a conversão.
             </PrivacyNote>
           </HeroCard>
         </HeroGrid>
@@ -149,17 +147,17 @@ export function HomePage() {
 
       <ContentGrid>
         <ConverterCard>
-          <SectionTitle>Conversão</SectionTitle>
+          <SectionTitle>Enviar currículo</SectionTitle>
           <SectionText>
-            Faça upload de um arquivo XML bruto do Lattes. O serviço valida a
-            estrutura, extrai a produção bibliográfica e devolve o conteúdo em
-            BibTeX.
+            Use o XML exportado pelo Lattes. A ferramenta valida a estrutura,
+            extrai a produção bibliográfica e devolve um BibTeX pronto para
+            revisão e importação.
           </SectionText>
 
           <Form onSubmit={handleSubmit}>
             <UploadPanel>
               <UploadLabel htmlFor="lattes-file">
-                <span>Arquivo XML</span>
+                <span>Arquivo do Lattes</span>
                 <strong>
                   {selectedFile ? selectedFile.name : "Escolher arquivo"}
                 </strong>
@@ -176,7 +174,7 @@ export function HomePage() {
               <UploadMeta>
                 {selectedFile
                   ? `${Math.max(1, Math.round(selectedFile.size / 1024))} KB`
-                  : "Aceita apenas arquivos .xml"}
+                  : "Aceita apenas XML exportado pela Plataforma Lattes"}
               </UploadMeta>
             </UploadPanel>
 
@@ -187,8 +185,8 @@ export function HomePage() {
                 data-testid="convert-button"
               >
                 {requestState.status === "loading"
-                  ? "Convertendo..."
-                  : "Gerar BibTeX"}
+                  ? "Convertendo XML..."
+                  : "Converter para BibTeX"}
               </PrimaryButton>
               <SecondaryButton
                 type="button"
@@ -196,7 +194,7 @@ export function HomePage() {
                 onClick={handleDownload}
                 data-testid="download-button"
               >
-                Baixar resultado
+                Baixar .bib
               </SecondaryButton>
             </ActionRow>
           </Form>
@@ -209,34 +207,34 @@ export function HomePage() {
 
           {requestState.status === "success" && (
             <StatusCard $tone="success" data-testid="conversion-success">
-              Conversão concluída. O BibTeX está pronto para download.
+              Pronto. Seu BibTeX foi gerado e já pode ser baixado.
             </StatusCard>
           )}
         </ConverterCard>
 
         <ResultsCard>
-          <SectionTitle>Resumo da execução</SectionTitle>
+          <SectionTitle>Resumo da conversão</SectionTitle>
           <SectionText>
-            O painel mostra quantos registros foram convertidos, quantos caíram
-            em `@misc` e quais avisos precisam de revisão manual.
+            Aqui você vê quantos itens entraram, quantos foram convertidos e
+            onde ainda vale uma revisão manual.
           </SectionText>
 
           <MetricsGrid>
             <MetricTile>
               <MetricValue>{summary?.totalItems ?? 0}</MetricValue>
-              <MetricLabel>Registros detectados</MetricLabel>
+              <MetricLabel>Itens encontrados</MetricLabel>
             </MetricTile>
             <MetricTile>
               <MetricValue>{summary?.convertedItems ?? 0}</MetricValue>
-              <MetricLabel>Registros convertidos</MetricLabel>
+              <MetricLabel>Itens convertidos</MetricLabel>
             </MetricTile>
             <MetricTile>
               <MetricValue>{summary?.fallbackMiscItems ?? 0}</MetricValue>
-              <MetricLabel>Fallback em @misc</MetricLabel>
+              <MetricLabel>Itens em @misc</MetricLabel>
             </MetricTile>
             <MetricTile>
               <MetricValue>{summary?.skippedItems ?? 0}</MetricValue>
-              <MetricLabel>Registros ignorados</MetricLabel>
+              <MetricLabel>Itens ignorados</MetricLabel>
             </MetricTile>
           </MetricsGrid>
 
@@ -252,7 +250,7 @@ export function HomePage() {
                 ))}
               </SummaryList>
             ) : (
-              <EmptyState>Aguardando um arquivo convertido.</EmptyState>
+              <EmptyState>Envie um XML para ver o resumo da conversão.</EmptyState>
             )}
           </Subsection>
 
@@ -268,7 +266,7 @@ export function HomePage() {
                 ))}
               </WarningList>
             ) : (
-              <EmptyState>Nenhum aviso gerado até o momento.</EmptyState>
+              <EmptyState>Nenhum aviso por enquanto.</EmptyState>
             )}
           </Subsection>
         </ResultsCard>
@@ -276,12 +274,14 @@ export function HomePage() {
 
       <Footer>
         <FooterCopy>
-          Projeto open source mantido para facilitar a integração entre Lattes,
-          ORCID e fluxos bibliográficos acadêmicos.
+          Projeto Open-Source criado para conectar Lattes e ORCID e poupar
+          muitas horas de trabalho repetitivo de pesquisadores brasileiros.
         </FooterCopy>
         <FooterLinks>
+          <a href="https://cecilialabs.com">Cecil-IA Labs</a>
           <a href="https://github.com/cecil-ia-labs/lattes2orcid">GitHub</a>
-          <a href="https://cecilialabs.com">Santa Catarina Laboratório</a>
+          <a href="https://lattes.cnpq.br">Plataforma Lattes</a>
+          <a href="https://www.gov.br/cnpq/pt-br">CNPq</a>
           <a href="https://orcid.org">ORCID</a>
         </FooterLinks>
       </Footer>
@@ -342,7 +342,7 @@ const HeroGrid = styled.div`
 
 const HeroText = styled.div`
   display: grid;
-  gap: 14px;
+  gap: 12px;
 `;
 
 const HeroTitle = styled.h1`
@@ -362,9 +362,9 @@ const HeroLead = styled.p`
 
 const HeroCopy = styled.p`
   margin: 0;
-  max-width: 62ch;
+  max-width: 58ch;
   font-size: 1.05rem;
-  line-height: 1.7;
+  line-height: 1.65;
   color: ${({ theme }) => theme.colors.slate};
 `;
 
@@ -372,10 +372,10 @@ const HeroCard = styled.aside`
   align-self: start;
   display: grid;
   gap: 14px;
-  padding: 22px;
+  padding: 24px;
   border-radius: ${({ theme }) => theme.radius.md};
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(15, 23, 32, 0.08);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(15, 23, 32, 0.1);
   backdrop-filter: blur(10px);
 `;
 
@@ -395,10 +395,16 @@ const InstructionList = styled.ol`
 
 const PrivacyNote = styled.p`
   margin: 0;
-  padding: 14px;
+  padding: 15px 16px;
   border-radius: ${({ theme }) => theme.radius.sm};
-  background: ${({ theme }) => theme.colors.tealSoft};
+  background: linear-gradient(
+    135deg,
+    rgba(199, 243, 235, 0.95),
+    rgba(255, 250, 241, 0.92)
+  );
+  border: 1px solid rgba(15, 118, 110, 0.16);
   color: ${({ theme }) => theme.colors.ink};
+  line-height: 1.55;
 `;
 
 const ContentGrid = styled.section`
@@ -433,6 +439,7 @@ const SectionTitle = styled.h2`
 
 const SectionText = styled.p`
   margin: 0 0 18px;
+  max-width: 60ch;
   line-height: 1.7;
   color: ${({ theme }) => theme.colors.slate};
 `;
@@ -609,19 +616,24 @@ const EmptyState = styled.p`
 const Footer = styled.footer`
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  align-items: center;
+  gap: 18px;
   margin-top: 24px;
-  padding: 20px 4px 0;
-  color: ${({ theme }) => theme.colors.slate};
+  padding: 20px 22px;
+  border-radius: ${({ theme }) => theme.radius.md};
+  border: 1px solid rgba(15, 23, 32, 0.08);
+  background: rgba(15, 23, 32, 0.92);
+  color: rgba(255, 250, 241, 0.88);
 
   @media (max-width: 800px) {
     flex-direction: column;
+    align-items: flex-start;
   }
 `;
 
 const FooterCopy = styled.p`
   margin: 0;
-  max-width: 58ch;
+  max-width: 60ch;
   line-height: 1.6;
 `;
 
@@ -632,7 +644,9 @@ const FooterLinks = styled.nav`
   font-family: var(--font-heading), sans-serif;
 
   a {
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+    padding-bottom: 2px;
   }
 `;
