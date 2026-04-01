@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CURRICULO-VITAE SISTEMA-ORIGEM-XML="LATTES">
+  <DADOS-GERAIS
+    NOME-COMPLETO="Pesquisador Exemplo"
+    NOME-EM-CITACOES-BIBLIOGRAFICAS="EXEMPLO, P."
+    NACIONALIDADE="B"
+    PERMISSAO-DE-DIVULGACAO="SIM"
+  />
+  <PRODUCAO-BIBLIOGRAFICA>
+    <LIVROS-E-CAPITULOS>
+      <LIVROS-PUBLICADOS-OU-ORGANIZADOS>
+        <LIVRO-PUBLICADO-OU-ORGANIZADO SEQUENCIA-PRODUCAO="1">
+          <DADOS-BASICOS-DO-LIVRO
+            TIPO="LIVRO_PUBLICADO"
+            NATUREZA="LIVRO"
+            TITULO-DO-LIVRO="Arquiteturas do Conhecimento"
+            ANO="2024"
+            PAIS-DE-PUBLICACAO="Brasil"
+            IDIOMA="Português"
+            MEIO-DE-DIVULGACAO="IMPRESSO"
+            DOI="10.5555/livro.2024"
+          />
+          <DETALHAMENTO-DO-LIVRO
+            NUMERO-DE-VOLUMES="1"
+            NUMERO-DE-PAGINAS="240"
+            ISBN="9786500000001"
+            NUMERO-DA-EDICAO-REVISAO="2"
+            NUMERO-DA-SERIE="Coleção Interoperabilidade"
+            CIDADE-DA-EDITORA="Florianópolis"
+            NOME-DA-EDITORA="Editora Exemplo"
+          />
+          <AUTORES
+            NOME-COMPLETO-DO-AUTOR="Pesquisador Exemplo"
+            NOME-PARA-CITACAO="EXEMPLO, P."
+            ORDEM-DE-AUTORIA="1"
+          />
+          <AUTORES
+            NOME-COMPLETO-DO-AUTOR="Coautora Exemplo"
+            NOME-PARA-CITACAO="EXEMPLO, C."
+            ORDEM-DE-AUTORIA="2"
+          />
+        </LIVRO-PUBLICADO-OU-ORGANIZADO>
+      </LIVROS-PUBLICADOS-OU-ORGANIZADOS>
+      <CAPITULOS-DE-LIVROS-PUBLICADOS>
+        <CAPITULO-DE-LIVRO-PUBLICADO SEQUENCIA-PRODUCAO="2">
+          <DADOS-BASICOS-DO-CAPITULO
+            TIPO="CAPITULO"
+            TITULO-DO-CAPITULO-DO-LIVRO="Capítulo sobre Grafos"
+            ANO="2023"
+            PAIS-DE-PUBLICACAO="Brasil"
+            IDIOMA="Português"
+            MEIO-DE-DIVULGACAO="IMPRESSO"
+          />
+          <DETALHAMENTO-DO-CAPITULO
+            TITULO-DO-LIVRO="Manual de Estruturas"
+            NUMERO-DE-VOLUMES="1"
+            PAGINA-INICIAL="35"
+            PAGINA-FINAL="61"
+            ISBN="9786500000002"
+            ORGANIZADORES="Editora Técnica"
+            NUMERO-DA-EDICAO-REVISAO="1"
+            NUMERO-DA-SERIE="Série Laboratório"
+            CIDADE-DA-EDITORA="São Paulo"
+            NOME-DA-EDITORA="Editora Técnica"
+          />
+          <AUTORES
+            NOME-COMPLETO-DO-AUTOR="Pesquisador Exemplo"
+            NOME-PARA-CITACAO="EXEMPLO, P."
+            ORDEM-DE-AUTORIA="1"
+          />
+        </CAPITULO-DE-LIVRO-PUBLICADO>
+      </CAPITULOS-DE-LIVROS-PUBLICADOS>
+    </LIVROS-E-CAPITULOS>
+  </PRODUCAO-BIBLIOGRAFICA>
+</CURRICULO-VITAE>

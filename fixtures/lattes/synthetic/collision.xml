@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<CURRICULO-VITAE SISTEMA-ORIGEM-XML="LATTES">
+  <DADOS-GERAIS
+    NOME-COMPLETO="Pesquisador Exemplo"
+    NOME-EM-CITACOES-BIBLIOGRAFICAS="EXEMPLO, P."
+    NACIONALIDADE="B"
+    PERMISSAO-DE-DIVULGACAO="SIM"
+  />
+  <PRODUCAO-BIBLIOGRAFICA>
+    <ARTIGOS-PUBLICADOS>
+      <ARTIGO-PUBLICADO SEQUENCIA-PRODUCAO="1">
+        <DADOS-BASICOS-DO-ARTIGO
+          NATUREZA="COMPLETO"
+          TITULO-DO-ARTIGO="João e o mesmo título"
+          ANO-DO-ARTIGO="2022"
+          PAIS-DE-PUBLICACAO="Brasil"
+          IDIOMA="Português"
+          MEIO-DE-DIVULGACAO="IMPRESSO"
+          DOI="10.5555/dup"
+        />
+        <DETALHAMENTO-DO-ARTIGO
+          TITULO-DO-PERIODICO-OU-REVISTA="Revista A"
+          ISSN="1111-1111"
+          VOLUME="1"
+          FASCICULO="1"
+          PAGINA-INICIAL="10"
+          PAGINA-FINAL="20"
+          LOCAL-DE-PUBLICACAO="São Paulo"
+        />
+        <AUTORES
+          NOME-COMPLETO-DO-AUTOR="João Exemplo"
+          NOME-PARA-CITACAO="EXEMPLO, J."
+          ORDEM-DE-AUTORIA="1"
+        />
+      </ARTIGO-PUBLICADO>
+      <ARTIGO-PUBLICADO SEQUENCIA-PRODUCAO="2">
+        <DADOS-BASICOS-DO-ARTIGO
+          NATUREZA="COMPLETO"
+          TITULO-DO-ARTIGO="João e o mesmo título"
+          ANO-DO-ARTIGO="2022"
+          PAIS-DE-PUBLICACAO="Brasil"
+          IDIOMA="Português"
+          MEIO-DE-DIVULGACAO="IMPRESSO"
+          DOI="10.5555/dup"
+        />
+        <DETALHAMENTO-DO-ARTIGO
+          TITULO-DO-PERIODICO-OU-REVISTA="Revista B"
+          ISSN="2222-2222"
+          VOLUME="2"
+          FASCICULO="1"
+          PAGINA-INICIAL="30"
+          PAGINA-FINAL="44"
+          LOCAL-DE-PUBLICACAO="São Paulo"
+        />
+        <AUTORES
+          NOME-COMPLETO-DO-AUTOR="João Exemplo"
+          NOME-PARA-CITACAO="EXEMPLO, J."
+          ORDEM-DE-AUTORIA="1"
+        />
+      </ARTIGO-PUBLICADO>
+    </ARTIGOS-PUBLICADOS>
+  </PRODUCAO-BIBLIOGRAFICA>
+</CURRICULO-VITAE>

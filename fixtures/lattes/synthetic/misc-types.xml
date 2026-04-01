@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CURRICULO-VITAE SISTEMA-ORIGEM-XML="LATTES">
+  <DADOS-GERAIS
+    NOME-COMPLETO="Pesquisador Exemplo"
+    NOME-EM-CITACOES-BIBLIOGRAFICAS="EXEMPLO, P."
+    NACIONALIDADE="B"
+    PERMISSAO-DE-DIVULGACAO="SIM"
+  />
+  <PRODUCAO-BIBLIOGRAFICA>
+    <DEMAIS-TIPOS-DE-PRODUCAO-BIBLIOGRAFICA>
+      <OUTRA-PRODUCAO-BIBLIOGRAFICA SEQUENCIA-PRODUCAO="1">
+        <DADOS-BASICOS-DE-OUTRA-PRODUCAO
+          NATUREZA="CATALOGO"
+          TITULO="Catálogo Curatorial"
+          ANO="2021"
+          PAIS-DE-PUBLICACAO="Brasil"
+          IDIOMA="Português"
+          MEIO-DE-DIVULGACAO="IMPRESSO"
+        />
+        <DETALHAMENTO-DE-OUTRA-PRODUCAO
+          EDITORA="Editora Arte"
+          CIDADE-DA-EDITORA="Curitiba"
+          NUMERO-DE-PAGINAS="48"
+          ISSN-ISBN="9786500000003"
+        />
+        <AUTORES
+          NOME-COMPLETO-DO-AUTOR="Pesquisador Exemplo"
+          NOME-PARA-CITACAO="EXEMPLO, P."
+          ORDEM-DE-AUTORIA="1"
+        />
+      </OUTRA-PRODUCAO-BIBLIOGRAFICA>
+      <PARTITURA-MUSICAL SEQUENCIA-PRODUCAO="2">
+        <DADOS-BASICOS-DA-PARTITURA
+          NATUREZA="CORAL"
+          TITULO="Partitura Coletiva"
+          ANO="2020"
+          PAIS-DE-PUBLICACAO="Brasil"
+          IDIOMA="Português"
+          MEIO-DE-DIVULGACAO="MEIO_DIGITAL"
+          DOI="10.5555/partitura.2020"
+        />
+        <DETALHAMENTO-DA-PARTITURA
+          FORMACAO-INSTRUMENTAL="Coral misto"
+          EDITORA="Editora Som"
+          CIDADE-DA-EDITORA="Belo Horizonte"
+          NUMERO-DE-PAGINAS="15"
+          NUMERO-DO-CATALOGO="CAT-01"
+        />
+        <AUTORES
+          NOME-COMPLETO-DO-AUTOR="Pesquisador Exemplo"
+          NOME-PARA-CITACAO="EXEMPLO, P."
+          ORDEM-DE-AUTORIA="1"
+        />
+      </PARTITURA-MUSICAL>
+      <PREFACIO-POSFACIO SEQUENCIA-PRODUCAO="3">
+        <DADOS-BASICOS-DO-PREFACIO-POSFACIO
+          TIPO="PREFACIO"
+          NATUREZA="LIVRO"
+          TITULO="Prefácio Analítico"
+          ANO="2019"
+          PAIS-DE-PUBLICACAO="Brasil"
+          IDIOMA="Português"
+          MEIO-DE-DIVULGACAO="IMPRESSO"
+        />
+        <DETALHAMENTO-DO-PREFACIO-POSFACIO
+          NOME-DO-AUTOR-DA-PUBLICACAO="Autora Original"
+          TITULO-DA-PUBLICACAO="Livro Comentado"
+          ISSN-ISBN="9786500000004"
+          NUMERO-DA-EDICAO-REVISAO="1"
+          VOLUME="1"
+          SERIE="Coleção Crítica"
+          FASCICULO="1"
+          EDITORA-DO-PREFACIO-POSFACIO="Editora Crítica"
+          CIDADE-DA-EDITORA="Recife"
+        />
+        <AUTORES
+          NOME-COMPLETO-DO-AUTOR="Pesquisador Exemplo"
+          NOME-PARA-CITACAO="EXEMPLO, P."
+          ORDEM-DE-AUTORIA="1"
+        />
+      </PREFACIO-POSFACIO>
+      <TRADUCAO SEQUENCIA-PRODUCAO="4">
+        <DADOS-BASICOS-DA-TRADUCAO
+          NATUREZA="LIVRO"
+          TITULO="Tradução Comentada"
+          ANO="2018"
+          PAIS-DE-PUBLICACAO="Brasil"
+          IDIOMA="Português"
+          MEIO-DE-DIVULGACAO="IMPRESSO"
+        />
+        <DETALHAMENTO-DA-TRADUCAO
+          NOME-DO-AUTOR-TRADUZIDO="Autor Estrangeiro"
+          TITULO-DA-OBRA-ORIGINAL="Original Work"
+          ISSN-ISBN="9786500000005"
+          IDIOMA-DA-OBRA-ORIGINAL="Inglês"
+          EDITORA-DA-TRADUCAO="Editora Tradução"
+          CIDADE-DA-EDITORA="Porto Alegre"
+          NUMERO-DE-PAGINAS="122"
+          NUMERO-DA-EDICAO-REVISAO="3"
+          VOLUME="1"
+          FASCICULO="1"
+          SERIE="Biblioteca Global"
+        />
+        <AUTORES
+          NOME-COMPLETO-DO-AUTOR="Pesquisador Exemplo"
+          NOME-PARA-CITACAO="EXEMPLO, P."
+          ORDEM-DE-AUTORIA="1"
+        />
+      </TRADUCAO>
+    </DEMAIS-TIPOS-DE-PRODUCAO-BIBLIOGRAFICA>
+  </PRODUCAO-BIBLIOGRAFICA>
+</CURRICULO-VITAE>

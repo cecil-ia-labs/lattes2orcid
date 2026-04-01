@@ -1,0 +1,66 @@
+{
+  "name": "lattes2orcid",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Lattes XML to BibTeX conversion webtool for ORCID and related research systems.",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install chromium",
+    "sanitize:fixture": "tsx scripts/sanitize-lattes-fixture.ts source/0645206667083920.xml fixtures/lattes/real/sanitized-lattes.xml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cecil-ia-labs/lattes2orcid.git"
+  },
+  "keywords": [
+    "lattes",
+    "orcid",
+    "bibtex",
+    "nextjs",
+    "xml"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cecil-ia-labs/lattes2orcid/issues"
+  },
+  "homepage": "https://github.com/cecil-ia-labs/lattes2orcid#readme",
+  "dependencies": {
+    "bibtex-parse": "^2.0.0",
+    "he": "^1.2.0",
+    "next": "^16.2.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "styled-components": "^6.1.19",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@playwright/test": "^1.59.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/he": "^1.2.3",
+    "@types/node": "^24.8.1",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@types/styled-components": "^5.1.34",
+    "@types/xml2js": "^0.4.14",
+    "eslint": "^9.38.0",
+    "eslint-config-next": "^16.2.2",
+    "jsdom": "^27.0.1",
+    "playwright": "^1.56.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}
