@@ -11,6 +11,12 @@ export default defineConfig({
     }
   },
   build: {
-    target: "es2020"
+    target: "es2020",
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "index.html"),
+        v2: path.resolve(__dirname, "v2/index.html")
+      }
+    }
   }
 });
