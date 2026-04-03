@@ -1,13 +1,11 @@
-"use client";
-
 import type {
-    ConversionResponse,
-    ConversionSummary,
-    ConversionWarning,
-    ErrorResponse
-} from "@/lib/lattes/types"
-import { startTransition, useMemo, useRef, useState } from "react"
-import styled, { keyframes } from "styled-components"
+  ConversionResponse,
+  ConversionSummary,
+  ConversionWarning
+} from "@/lib/lattes/types";
+import { convertLattesXmlFile } from "@/lib/lattes/client";
+import { useMemo, useRef, useState } from "react";
+import styled, { keyframes } from "styled-components";
 
 type RequestState =
   | { status: "idle" }
@@ -60,37 +58,21 @@ export function HomePage() {
       return;
     }
 
-    startTransition(async () => {
-      setRequestState({ status: "loading" });
+    setRequestState({ status: "loading" });
 
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-
-      try {
-        const response = await fetch("/api/convert/lattes-to-bibtex", {
-          method: "POST",
-          body: formData
-        });
-
-        const data = (await response.json()) as ConversionResponse | ErrorResponse;
-
-        if (!response.ok || "error" in data) {
-          throw new Error(
-            "error" in data ? data.error.message : "Falha inesperada ao converter o XML."
-          );
-        }
-
-        setRequestState({ status: "success", payload: data });
-      } catch (error) {
-        setRequestState({
-          status: "error",
-          message:
-            error instanceof Error
-              ? error.message
-              : "Não foi possível concluir a conversão."
-        });
-      }
-    });
+    try {
+      const payload = await convertLattesXmlFile(selectedFile);
+      setRequestState({ status: "success", payload });
+    } catch (error) {
+      console.error("[lattes2bibtex] Failed to convert selected file.", error);
+      setRequestState({
+        status: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Não foi possível concluir a conversão."
+      });
+    }
   }
 
   function handleDownload() {

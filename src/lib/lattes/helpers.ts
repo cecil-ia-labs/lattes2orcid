@@ -1,10 +1,6 @@
-import he from "he";
 import type { LattesAuthor } from "@/lib/lattes/types";
 
-export interface XmlNode {
-  $?: Record<string, unknown>;
-  [key: string]: unknown;
-}
+export type XmlNode = Document | Element;
 
 const BIBTEX_MONTHS = [
   "jan",
@@ -21,38 +17,31 @@ const BIBTEX_MONTHS = [
   "dec"
 ] as const;
 
-export function asArray<T>(value: T | T[] | undefined | null): T[] {
-  if (value === undefined || value === null) {
-    return [];
-  }
-
-  return Array.isArray(value) ? value : [value];
-}
-
-export function asNode(value: unknown): XmlNode | undefined {
-  if (!value || typeof value !== "object") {
+export function getChild(node: XmlNode | undefined, key: string): Element | undefined {
+  if (!node) {
     return undefined;
   }
 
-  return value as XmlNode;
+  const children = getChildElements(node);
+  return children.find((child) => child.tagName === key);
 }
 
-export function getChild(node: XmlNode | undefined, key: string): XmlNode | undefined {
-  return asNode(node?.[key]);
+export function getChildren(node: XmlNode | undefined, key: string): Element[] {
+  if (!node) {
+    return [];
+  }
+
+  return getChildElements(node).filter((child) => child.tagName === key);
 }
 
-export function getChildren(
-  node: XmlNode | undefined,
-  key: string
-): XmlNode[] {
-  return asArray(node?.[key]).map((entry) => asNode(entry)).filter(Boolean) as XmlNode[];
-}
+export function getAttrs(node: Element | undefined): Record<string, string> {
+  if (!node) {
+    return {};
+  }
 
-export function getAttrs(node: XmlNode | undefined): Record<string, string> {
-  const attrs = node?.$ ?? {};
   return Object.fromEntries(
-    Object.entries(attrs)
-      .map(([key, value]) => [key, cleanValue(value)])
+    Array.from(node.attributes)
+      .map((attr) => [attr.name, cleanValue(attr.value)] as const)
       .filter((entry): entry is [string, string] => Boolean(entry[1]))
   );
 }
@@ -63,15 +52,11 @@ export function cleanValue(value: unknown): string | undefined {
   }
 
   const raw = typeof value === "string" ? value : String(value);
-  const decoded = he.decode(raw)
-    .replace(/\r?\n+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-
-  return decoded.length > 0 ? decoded : undefined;
+  const normalized = raw.replace(/\r?\n+/g, " ").replace(/\s+/g, " ").trim();
+  return normalized.length > 0 ? normalized : undefined;
 }
 
-export function listKeywords(node: XmlNode | undefined): string[] {
+export function listKeywords(node: Element | undefined): string[] {
   const attrs = getAttrs(node);
   return Object.entries(attrs)
     .filter(([key]) => key.startsWith("PALAVRA-CHAVE"))
@@ -87,7 +72,7 @@ export function buildPages(start?: string, end?: string): string | undefined {
   return start ?? end;
 }
 
-export function extractAuthors(nodes: XmlNode[]): LattesAuthor[] {
+export function extractAuthors(nodes: Element[]): LattesAuthor[] {
   return nodes
     .map((node, index) => {
       const attrs = getAttrs(node);
@@ -220,4 +205,12 @@ export function parseLattesDate(value?: string): {
 
 export function mergeNotes(...values: Array<string | undefined>): string[] {
   return values.filter(Boolean) as string[];
+}
+
+function getChildElements(node: XmlNode): Element[] {
+  if (node instanceof Document) {
+    return node.documentElement ? [node.documentElement] : [];
+  }
+
+  return Array.from(node.children);
 }

@@ -1,6 +1,4 @@
-import { Builder } from "xml2js";
-import { decodeXmlBuffer, parseXmlDocument } from "@/lib/lattes/normalize";
-import type { XmlNode } from "@/lib/lattes/helpers";
+import { decodeXmlBytes, type XmlBinaryInput } from "@/lib/lattes/normalize";
 
 const REDACTED = "DADO-REMOVIDO";
 const NAME_PLACEHOLDERS = {
@@ -22,7 +20,8 @@ const ATTRIBUTE_SANITIZERS: Array<{
   { pattern: /CIDADE|UF|PAIS/i, replacement: () => REDACTED },
   { pattern: /NOME-DO-PAI|NOME-DA-MAE/i, replacement: () => NAME_PLACEHOLDERS.full },
   {
-    pattern: /NOME-COMPLETO-DO-AUTOR|NOME-COMPLETO-DO-PARTICIPANTE|NOME-DO-AUTOR-TRADUZIDO|NOME-DO-AUTOR-DA-PUBLICACAO|NOME-COMPLETO$/i,
+    pattern:
+      /NOME-COMPLETO-DO-AUTOR|NOME-COMPLETO-DO-PARTICIPANTE|NOME-DO-AUTOR-TRADUZIDO|NOME-DO-AUTOR-DA-PUBLICACAO|NOME-COMPLETO$/i,
     replacement: () => NAME_PLACEHOLDERS.full
   },
   {
@@ -43,55 +42,25 @@ const ATTRIBUTE_SANITIZERS: Array<{
   }
 ];
 
-const XML_BUILDER = new Builder({
-  headless: false,
-  renderOpts: {
-    pretty: true,
-    indent: "  ",
-    newline: "\n"
-  },
-  xmldec: {
-    version: "1.0",
-    encoding: "UTF-8"
-  }
-});
-
-export async function sanitizeLattesXml(xml: string): Promise<string> {
-  const document = await parseXmlDocument(xml);
-  redactNode(document);
-  return XML_BUILDER.buildObject(document);
+export function sanitizeLattesXmlText(xml: string): string {
+  return xml.replace(/<[^>]+>/g, sanitizeTag);
 }
 
-export async function sanitizeLattesXmlBuffer(buffer: Buffer): Promise<string> {
-  const { xml } = decodeXmlBuffer(buffer);
-  return sanitizeLattesXml(xml);
+export function sanitizeLattesXmlBytes(input: XmlBinaryInput): string {
+  const { xml } = decodeXmlBytes(input);
+  return sanitizeLattesXmlText(xml);
 }
 
-function redactNode(value: unknown) {
-  if (!value || typeof value !== "object") {
-    return;
+export const sanitizeLattesXmlBuffer = sanitizeLattesXmlBytes;
+
+function sanitizeTag(tag: string): string {
+  if (tag.startsWith("<?") || tag.startsWith("<!")) {
+    return tag;
   }
 
-  if (Array.isArray(value)) {
-    value.forEach(redactNode);
-    return;
-  }
-
-  const node = value as XmlNode;
-  if (node.$) {
-    for (const [key, rawValue] of Object.entries(node.$)) {
-      if (typeof rawValue !== "string") {
-        continue;
-      }
-
-      const sanitizer = ATTRIBUTE_SANITIZERS.find(({ pattern }) => pattern.test(key));
-      if (sanitizer) {
-        node.$[key] = sanitizer.replacement(key);
-      }
-    }
-  }
-
-  for (const child of Object.values(node)) {
-    redactNode(child);
-  }
+  return tag.replace(/([A-Za-z0-9_-]+)="([^"]*)"/g, (_match, key: string, value: string) => {
+    const sanitizer = ATTRIBUTE_SANITIZERS.find(({ pattern }) => pattern.test(key));
+    const replacement = sanitizer ? sanitizer.replacement(key) : value;
+    return `${key}="${replacement}"`;
+  });
 }

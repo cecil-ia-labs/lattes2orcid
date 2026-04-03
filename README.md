@@ -1,18 +1,19 @@
 # Lattes2BibTeX
 
-Webtool em `Next.js` para converter o XML da Plataforma Lattes em `BibTeX`, com foco em privacidade, interoperabilidade acadêmica e importação posterior no ORCID.
+Webtool em `React 18 + Vite` para converter o XML da Plataforma Lattes em `BibTeX` diretamente no navegador, com foco em privacidade, interoperabilidade acadêmica e importação posterior no ORCID.
 
 ## Objetivo
 
-O Lattes exporta o currículo em XML, mas não oferece um fluxo direto de exportação bibliográfica para serviços como ORCID e Web of Science. Este projeto usa o `BibTeX` como formato intermediário para diminuir a fricção entre essas plataformas.
+O Lattes exporta o currículo em XML, mas não oferece um fluxo direto de exportação bibliográfica para serviços como ORCID e Web of Science. Este projeto usa o `BibTeX` como formato intermediário para diminuir a fricção entre essas plataformas sem exigir backend.
 
 ## Escopo do v1
 
 - Conversão `Lattes XML -> BibTeX`
-- API `POST /api/convert/lattes-to-bibtex`
+- Processamento 100% client-side
 - Interface web única para upload, conversão e download
+- `Web Worker` como caminho padrão de conversão, com fallback local no main thread
 - Cobertura de todos os ramos atuais de `PRODUCAO-BIBLIOGRAFICA` do XSD local
-- Sem cookies, sem autenticação e sem persistência de uploads
+- Sem cookies, sem autenticação, sem banco de dados e sem persistência de uploads
 
 ## Mapeamento bibliográfico
 
@@ -28,7 +29,8 @@ Quando um campo do Lattes não possui equivalente limpo em BibTeX, o valor é pr
 
 ## Modelo de privacidade
 
-- O arquivo XML é processado apenas durante a requisição.
+- O arquivo XML é processado localmente no navegador.
+- O arquivo não é enviado para servidor.
 - Não há banco de dados.
 - Não há armazenamento persistente do XML enviado nem do BibTeX gerado.
 - Não há cookies.
@@ -50,7 +52,7 @@ npm install
 npm run dev
 ```
 
-Aplicação em desenvolvimento: `http://localhost:3000`
+Aplicação em desenvolvimento: `http://127.0.0.1:5173/lattes2orcid/`
 
 ### Scripts úteis
 
@@ -60,33 +62,43 @@ npm run typecheck
 npm run test:unit
 npm run test:e2e
 npm run build
+npm run preview
 npm run sanitize:fixture
 ```
 
+## Deploy estático
+
+- Alvo padrão: `GitHub Pages`
+- Base path: `/lattes2orcid/`
+- O build gerado em `dist/` é próprio para hospedagem estática
+- O deploy está configurado em `.github/workflows/deploy-pages.yml`
+- Todo push em `main` publica automaticamente a versão estática no GitHub Pages
+
 ## Estrutura principal
 
-- `src/app/` : App Router e rota HTTP de conversão
 - `src/components/` : interface e tema visual
-- `src/lib/lattes/` : decode, parsing, extração, mapeamento, serialização e sanitização
+- `src/lib/lattes/` : decode, parsing DOM, extração, mapeamento, serialização, worker e sanitização
 - `fixtures/lattes/` : fixture real sanitizado e fixtures sintéticos
 - `assets/` : XSD e DTD de referência do Lattes
-- `.codex/skills/` : skills locais para mapeamento do XSD, normalização BibTeX, sanitização e privacidade
+- `.codex/skills/` : skills locais para schema mapping, BibTeX, sanitização, DOM XML e worker
 - `AGENTS.md` : responsabilidades dos agentes do projeto
 
 ## Fixtures e dados sensíveis
 
 - O fixture público principal está em `fixtures/lattes/real/sanitized-lattes.xml`.
 - Fixtures sintéticos complementam categorias não presentes no XML real sanitizado.
+- O script `npm run sanitize:fixture` existe apenas para manutenção offline de fixtures.
 
 ## Validação e testes
 
 A suíte atual cobre:
 
-- parsing e serialização BibTeX
+- parsing e serialização BibTeX sem parser externo
 - categorias bibliográficas do XSD
 - normalização de encoding `ISO-8859-1`
 - colisões de citekey e identificadores duplicados
-- erros da API para XML inválido, raiz incorreta, ausência de produção bibliográfica e upload grande
+- erros de XML inválido, raiz incorreta, ausência de produção bibliográfica e upload grande
+- caminho via `Web Worker` e fallback local
 - fluxo E2E de upload, erro de validação, conversão e renderização de avisos
 
 ## Status do fluxo ORCID
@@ -114,5 +126,5 @@ Antes de importar dados em qualquer plataforma, mantenha uma cópia do XML origi
 - [ ] `BibTeX -> Lattes XML` ainda não faz parte do v1.
 - [ ] O upload aceita apenas XML bruto, não ZIP.
 - [ ] A cobertura bibliográfica é guiada pelo XSD local versionado no repositório.
-- [ ] No momento, a única seção que pode ser importada para o ORCID é o BibTeX com os dados das publicações e artigos, enquanto as demais do XML ainda não são suportadas e mas podem ser igualmente extensas e tediosas, como formação acadêmica, experiência profissional, orientações, participações em eventos, prêmios e títulos. etc.
-- [ ] O fluxo de importação para o ORCID é manual, exigindo que o usuário baixe o BibTeX e importe na plataforma do ORCID, onde pode haver erros de parsing ou campos não mapeados que precisam ser revisados e corrigidos manualmente. O ideal seria ter uma integração direta com a API do ORCID para enviar os dados convertidos automaticamente, mas isso exigiria autenticação e autorização do usuário, o que vai contra o modelo de privacidade sem cookies e sem banco de dados adotado neste projeto. Desse modo seria possível implementar uma interface que se integre diretamente com o ORCID, mas isso exigiria autenticação e autorização do usuário, o que vai contra o modelo de privacidade sem cookies e sem banco de dados adotado neste projeto. Por ora. ~~O que não é admissível é milhões de pesquisadores perderem horas importantes ao lado da família ou realizando seu trabalho, para ficarem sentados, copiando e colando dados manualmente~~
+- [ ] No momento, a única seção que pode ser importada para o ORCID é o BibTeX com os dados das publicações e artigos, enquanto as demais do XML ainda não são suportadas e podem ser igualmente extensas e tediosas, como formação acadêmica, experiência profissional, orientações, participações em eventos, prêmios e títulos.
+- [ ] O fluxo de importação para o ORCID continua manual: o usuário baixa o BibTeX e importa na plataforma do ORCID, onde ainda pode haver ajustes manuais de parsing ou mapeamento.
