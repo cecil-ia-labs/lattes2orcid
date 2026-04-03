@@ -1,23 +1,22 @@
-import path from "node:path";
-import { ApiError } from "@/lib/lattes/errors";
+import { ConversionError } from "@/lib/lattes/errors";
 import { extractBibliographicItems } from "@/lib/lattes/extract";
 import { mapToBibTeXEntries } from "@/lib/lattes/map";
-import { decodeXmlBuffer, parseXmlDocument } from "@/lib/lattes/normalize";
+import { decodeXmlBytes, parseXmlDocument, type XmlBinaryInput } from "@/lib/lattes/normalize";
 import { serializeBibTeX } from "@/lib/lattes/serialize";
 import type { ConversionResponse } from "@/lib/lattes/types";
 import { getChild } from "@/lib/lattes/helpers";
 
 export const MAX_UPLOAD_SIZE_BYTES = 25 * 1024 * 1024;
 
-export async function convertLattesXmlBuffer(
-  buffer: Buffer,
+export async function convertLattesXmlBytes(
+  input: XmlBinaryInput,
   originalFilename: string
 ): Promise<ConversionResponse> {
-  const { xml } = decodeXmlBuffer(buffer);
-  const document = await parseXmlDocument(xml);
+  const { xml } = decodeXmlBytes(input);
+  const document = parseXmlDocument(xml);
 
   if (!getChild(document, "CURRICULO-VITAE")) {
-    throw new ApiError(
+    throw new ConversionError(
       422,
       "invalid_root_element",
       "O XML enviado não possui o elemento raiz CURRICULO-VITAE."
@@ -27,7 +26,7 @@ export async function convertLattesXmlBuffer(
   const extracted = extractBibliographicItems(document);
 
   if (extracted.items.length === 0) {
-    throw new ApiError(
+    throw new ConversionError(
       422,
       "missing_bibliographic_content",
       "Nenhuma produção bibliográfica foi encontrada no currículo informado."
@@ -51,9 +50,12 @@ export async function convertLattesXmlBuffer(
   };
 }
 
+export const convertLattesXmlBuffer = convertLattesXmlBytes;
+
 function buildOutputFilename(originalFilename: string): string {
-  const baseName = path.basename(originalFilename, path.extname(originalFilename));
-  return `${baseName || "curriculo-lattes"}.bib`;
+  const baseName = originalFilename.split(/[\\/]/).pop() ?? originalFilename;
+  const withoutExtension = baseName.replace(/\.[^.]+$/, "");
+  return `${withoutExtension || "curriculo-lattes"}.bib`;
 }
 
 function buildCategorySummary(

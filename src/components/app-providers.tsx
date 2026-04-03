@@ -1,5 +1,3 @@
-"use client";
-
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 
 const theme = {
@@ -28,6 +26,8 @@ const theme = {
 const GlobalStyles = createGlobalStyle`
   :root {
     color-scheme: light;
+    --font-heading: "Bricolage Grotesque", sans-serif;
+    --font-body: "Source Serif 4", serif;
   }
 
   * {

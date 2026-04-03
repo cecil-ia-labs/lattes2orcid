@@ -1,8 +1,10 @@
 .dontpush
 node_modules
 .next
+dist
 playwright-report
 test-results
 source/*
 coverage
 tsconfig.tsbuildinfo
+.codex/config.toml

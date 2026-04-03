@@ -406,7 +406,7 @@ export function extractBibliographicItems(root: XmlNode): {
 }
 
 function extractWithConfig(
-  nodes: XmlNode[],
+  nodes: Element[],
   config: ExtractionConfig,
   warnings: ConversionWarning[]
 ): LattesBibliographicItem[] {
@@ -416,7 +416,7 @@ function extractWithConfig(
 }
 
 function extractMiscType(
-  nodes: XmlNode[],
+  nodes: Element[],
   config: ExtractionConfig,
   warnings: ConversionWarning[]
 ): MiscBibliographicItem[] {
@@ -426,7 +426,7 @@ function extractMiscType(
 }
 
 function createItem(
-  node: XmlNode,
+  node: Element,
   config: ExtractionConfig,
   warnings: ConversionWarning[]
 ): LattesBaseItem | undefined {

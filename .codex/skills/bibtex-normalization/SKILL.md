@@ -7,6 +7,12 @@ description: Use when converting normalized publication records into BibTeX, cho
 
 Use this skill when the repository needs consistent BibTeX output instead of ad hoc string assembly.
 
+The conversion path must stay browser-safe:
+
+- no `bibtex-parse` in runtime conversion code
+- no Node-only parser helpers
+- keep serialization deterministic for worker and same-thread fallback paths
+
 ## Entry Mapping Defaults
 
 - `TRABALHO-EM-EVENTOS` -> `@inproceedings`
@@ -35,4 +41,4 @@ Use this skill when the repository needs consistent BibTeX output instead of ad 
 - Escape characters that would break BibTeX syntax
 - Omit empty fields
 - Preserve multiline notes as plain whitespace-normalized text
-- Re-parse generated output during tests to catch syntax regressions
+- Validate generated output during tests with internal structure checks rather than external BibTeX parser libraries
