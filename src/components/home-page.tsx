@@ -179,6 +179,17 @@ export function HomePage() {
                 Baixar .bib
               </SecondaryButton>
             </ActionRow>
+
+            <LimitationCard aria-labelledby="limitations-title">
+              <LimitationTitle id="limitations-title">Limitações</LimitationTitle>
+              <LimitationText>
+                Por uma incompatibilidade entre a exportação da Plataforma
+                Lattes e a importação da ORCID, quando{" "}
+                <code>HOME-PAGE-DO-TRABALHO</code> contém múltiplas URLs, no
+                momento somente a primeira é repassada. As demais são
+                ignoradas.
+              </LimitationText>
+            </LimitationCard>
           </Form>
 
           {requestState.status === "error" && (
@@ -472,6 +483,33 @@ const ActionRow = styled.div`
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 12px;
+`;
+
+const LimitationCard = styled.section`
+  padding: 16px 18px;
+  border-radius: ${({ theme }) => theme.radius.md};
+  border: 1px solid rgba(15, 23, 32, 0.1);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 250, 241, 0.96),
+    rgba(255, 243, 217, 0.92)
+  );
+`;
+
+const LimitationTitle = styled.h3`
+  margin: 0 0 8px;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 1rem;
+`;
+
+const LimitationText = styled.p`
+  margin: 0;
+  line-height: 1.6;
+  color: ${({ theme }) => theme.colors.slate};
+
+  code {
+    font-size: 0.95em;
+  }
 `;
 
 const BaseButton = styled.button`

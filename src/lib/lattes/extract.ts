@@ -473,7 +473,7 @@ function createItem(
     country: config.basic.country ? basicAttrs[config.basic.country] : undefined,
     language: config.basic.language ? basicAttrs[config.basic.language] : undefined,
     medium: config.basic.medium ? basicAttrs[config.basic.medium] : undefined,
-    url: config.basic.url ? basicAttrs[config.basic.url] : undefined,
+    url: config.basic.url ? normalizeWorkUrl(basicAttrs[config.basic.url]) : undefined,
     doi: config.basic.doi ? basicAttrs[config.basic.doi] : undefined,
     isbn: config.detail?.isbn ? detailAttrs[config.detail.isbn] : undefined,
     issn: config.detail?.issn ? detailAttrs[config.detail.issn] : undefined,
@@ -511,6 +511,26 @@ function createItem(
       ? { pageCount: detailAttrs[config.detail.pageCount] }
       : {})
   };
+}
+
+function normalizeWorkUrl(value: string | undefined): string | undefined {
+  if (!value) {
+    return undefined;
+  }
+
+  const trimmed = value.trim();
+
+  if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+    const [firstUrl] = trimmed
+      .slice(1, -1)
+      .split(",")
+      .map((item) => cleanValue(item))
+      .filter(Boolean) as string[];
+
+    return firstUrl;
+  }
+
+  return trimmed;
 }
 
 function collectExtraNoteFields(

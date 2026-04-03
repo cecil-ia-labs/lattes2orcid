@@ -1,0 +1,23 @@
+{
+  "name": "Lattes 2 ORCID",
+  "short_name": "Lattes2ORCID",
+  "description": "Converta o XML do Lattes em BibTeX no navegador para revisar e importar publicações no ORCID.",
+  "lang": "pt-BR",
+  "start_url": "/lattes2orcid/",
+  "scope": "/lattes2orcid/",
+  "display": "standalone",
+  "background_color": "#fffaf1",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "./apple-touch-icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
+      "src": "./og-image.png",
+      "sizes": "1434x1434",
+      "type": "image/png"
+    }
+  ]
+}
