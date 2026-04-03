@@ -1,6 +1,6 @@
 {
   "name": "lattes2orcid",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Lattes XML to BibTeX conversion webtool for ORCID and related research systems.",
   "type": "module",
