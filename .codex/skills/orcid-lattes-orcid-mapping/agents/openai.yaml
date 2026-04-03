@@ -1,0 +1,5 @@
+interface:
+  display_name: "Lattes to ORCID Mapping"
+  short_description: "Map Lattes XML into ORCID sections"
+  default_prompt: "Use $orcid-lattes-orcid-mapping to classify Lattes fields into ORCID sections, manual review, and ownership-safe updates."
+

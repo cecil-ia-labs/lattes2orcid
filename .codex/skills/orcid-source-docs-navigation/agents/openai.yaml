@@ -1,0 +1,5 @@
+interface:
+  display_name: "ORCID Docs Navigation"
+  short_description: "Read ORCID docs and extract constraints"
+  default_prompt: "Use $orcid-source-docs-navigation to extract the ORCID scopes, ownership rules, and launch requirements relevant to the v2 integration."
+

@@ -1,0 +1,5 @@
+interface:
+  display_name: "ORCID Wizard UI Figma"
+  short_description: "Design the ORCID v2 wizard in Figma"
+  default_prompt: "Use $orcid-wizard-ui-figma to create the ORCID v2 wizard screens, review states, and mobile/desktop layouts in Figma."
+

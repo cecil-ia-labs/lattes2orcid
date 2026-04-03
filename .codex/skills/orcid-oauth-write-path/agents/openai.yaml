@@ -1,0 +1,5 @@
+interface:
+  display_name: "ORCID OAuth Write Path"
+  short_description: "Design safe ORCID login and write flow"
+  default_prompt: "Use $orcid-oauth-write-path to define the safe OAuth, token, and write contract for the ORCID v2 integration."
+

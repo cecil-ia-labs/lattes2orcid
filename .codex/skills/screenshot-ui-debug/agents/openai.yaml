@@ -1,0 +1,5 @@
+interface:
+  display_name: "Screenshot UI Debug"
+  short_description: "Analyze UI screenshots and diagnose visual bugs"
+  default_prompt: "Use $screenshot-ui-debug to inspect a UI screenshot, identify layout and typography issues, and report the most likely code fixes."
+
