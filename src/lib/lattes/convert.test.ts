@@ -64,6 +64,47 @@ describe("convertLattesXmlBytes", () => {
     expect(warningCodes).toContain("citekey-collision");
     expect(warningCodes).toContain("duplicate-identifier");
   });
+
+  it("uses only the first URL when HOME-PAGE-DO-TRABALHO is exported as a list", async () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<CURRICULO-VITAE>
+  <PRODUCAO-BIBLIOGRAFICA>
+    <ARTIGOS-PUBLICADOS>
+      <ARTIGO-PUBLICADO SEQUENCIA-PRODUCAO="1">
+        <DADOS-BASICOS-DO-ARTIGO
+          NATUREZA="COMPLETO"
+          TITULO-DO-ARTIGO="Artigo com URL em lista"
+          ANO-DO-ARTIGO="2024"
+          PAIS-DE-PUBLICACAO="Brasil"
+          IDIOMA="Português"
+          MEIO-DE-DIVULGACAO="MEIO_DIGITAL"
+          HOME-PAGE-DO-TRABALHO="[https://primeira.example/artigo, https://segunda.example/artigo]"
+          DOI=""
+        />
+        <DETALHAMENTO-DO-ARTIGO
+          TITULO-DO-PERIODICO-OU-REVISTA="Revista Exemplo"
+          ISSN="12345678"
+          VOLUME="1"
+          PAGINA-INICIAL="10"
+          PAGINA-FINAL="20"
+        />
+        <AUTORES
+          NOME-COMPLETO-DO-AUTOR="Pesquisador Exemplo"
+          NOME-PARA-CITACAO="EXEMPLO, P."
+          ORDEM-DE-AUTORIA="1"
+        />
+      </ARTIGO-PUBLICADO>
+    </ARTIGOS-PUBLICADOS>
+  </PRODUCAO-BIBLIOGRAFICA>
+</CURRICULO-VITAE>`;
+
+    const result = await convertLattesXmlBytes(new TextEncoder().encode(xml), "list-url.xml");
+    const entries = parseBibTeX(result.bibtex);
+
+    expect(entries).toHaveLength(1);
+    expect(entries[0]?.fields.url).toBe("https://primeira.example/artigo");
+    expect(entries[0]?.fields.url).not.toContain("segunda.example");
+  });
 });
 
 describe("convertLattesXmlFile", () => {
