@@ -16,6 +16,7 @@ export async function handleWorkerConvertRequest(
       payload
     };
   } catch (error) {
+    console.error("[lattes2bibtex] Worker conversion failed.", error);
     return {
       type: "error",
       error: toWorkerError(error)

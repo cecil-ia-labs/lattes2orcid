@@ -71,6 +71,8 @@ npm run sanitize:fixture
 - Alvo padrão: `GitHub Pages`
 - Base path: `/lattes2orcid/`
 - O build gerado em `dist/` é próprio para hospedagem estática
+- O deploy está configurado em `.github/workflows/deploy-pages.yml`
+- Todo push em `main` publica automaticamente a versão estática no GitHub Pages
 
 ## Estrutura principal
 

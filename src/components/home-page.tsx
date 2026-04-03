@@ -64,6 +64,7 @@ export function HomePage() {
       const payload = await convertLattesXmlFile(selectedFile);
       setRequestState({ status: "success", payload });
     } catch (error) {
+      console.error("[lattes2bibtex] Failed to convert selected file.", error);
       setRequestState({
         status: "error",
         message:

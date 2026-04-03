@@ -187,6 +187,59 @@ describe("convertLattesXmlFile", () => {
     }
   });
 
+  it("falls back to the main thread when the worker returns an internal error payload", async () => {
+    const xml = await readFixtureText("synthetic/books-and-chapter.xml");
+    const file = createFileLike(xml, "books-and-chapter.xml");
+    const originalWorker = globalThis.Worker;
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+
+    class InternalErrorWorker {
+      private messageListener: ((event: MessageEvent) => void) | null = null;
+
+      constructor() {}
+
+      addEventListener(type: string, listener: EventListener) {
+        if (type === "message") {
+          this.messageListener = listener as (event: MessageEvent) => void;
+        }
+      }
+
+      removeEventListener() {}
+
+      terminate() {}
+
+      postMessage() {
+        queueMicrotask(() => {
+          this.messageListener?.({
+            data: {
+              type: "error",
+              error: {
+                code: "worker_internal_error",
+                message: "Falha interna durante a conversão do arquivo."
+              }
+            }
+          } as MessageEvent);
+        });
+      }
+    }
+
+    try {
+      // @ts-expect-error browser worker mock
+      globalThis.Worker = InternalErrorWorker;
+      const result = await convertLattesXmlFile(file);
+
+      expect(result.filename).toBe("books-and-chapter.bib");
+      expect(result.summary.convertedItems).toBeGreaterThan(0);
+      expect(errorSpy).toHaveBeenCalled();
+      expect(warnSpy).toHaveBeenCalled();
+    } finally {
+      globalThis.Worker = originalWorker;
+      errorSpy.mockRestore();
+      warnSpy.mockRestore();
+    }
+  });
+
   it("rejects invalid XML payloads", async () => {
     const file = createFileLike("<not-closed", "broken.xml");
 

@@ -16,7 +16,13 @@ export async function convertLattesXmlFile(file: File): Promise<ConversionRespon
   try {
     return await convertViaWorker(buffer, file.name);
   } catch (error) {
+    logClientConversionError(error);
+
     if (shouldFallbackToMainThread(error)) {
+      console.warn(
+        "[lattes2bibtex] Worker conversion failed. Falling back to main-thread conversion.",
+        error
+      );
       return convertLattesXmlBytes(buffer, file.name);
     }
 
@@ -61,14 +67,14 @@ async function convertViaWorker(
     const onMessage = (event: MessageEvent<WorkerConvertResponse>) => {
       cleanup();
 
-      if (event.data.type === "success") {
-        resolve((event.data as WorkerConvertSuccess).payload);
-        return;
-      }
+    if (event.data.type === "success") {
+      resolve((event.data as WorkerConvertSuccess).payload);
+      return;
+    }
 
       reject(
         new ConversionError(
-          422,
+          event.data.error.code === "worker_internal_error" ? 503 : 422,
           event.data.error.code,
           event.data.error.message
         )
@@ -139,7 +145,9 @@ function shouldFallbackToMainThread(error: unknown): error is ConversionError {
     (error.code === "worker_unavailable" ||
       error.code === "worker_bootstrap_failed" ||
       error.code === "worker_post_message_failed" ||
-      error.code === "worker_runtime_failed")
+      error.code === "worker_runtime_failed" ||
+      error.code === "worker_internal_error" ||
+      error.code === "invalid_worker_message")
   );
 }
 
@@ -153,4 +161,13 @@ function normalizeClientError(error: unknown): Error {
     "client_conversion_error",
     "Não foi possível concluir a conversão."
   );
+}
+
+function logClientConversionError(error: unknown) {
+  if (error instanceof Error) {
+    console.error("[lattes2bibtex] Conversion failed.", error);
+    return;
+  }
+
+  console.error("[lattes2bibtex] Conversion failed with a non-Error throwable.", error);
 }
