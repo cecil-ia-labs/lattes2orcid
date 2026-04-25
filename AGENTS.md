@@ -2,15 +2,15 @@
 
 ## Repository Agents
 
-| Agent | Responsibility | Contact |
-| --- | --- | --- |
-| Product Steward | Own product scope, interoperability goals, public release criteria, and scientific workflow alignment with Lattes, ORCID, and WoS. | `TBD` |
-| Parser Engineer | Maintain browser-side XML normalization, bibliographic extraction, BibTeX mapping, citekey generation, and client conversion contracts. | `TBD` |
-| Privacy Steward | Keep fixtures sanitized, prevent raw file persistence, review offline processing guarantees, and enforce the no-cookie/no-backend policy. | `TBD` |
-| UI Engineer | Maintain the React 18 + Vite application shell, accessibility, responsive layout, upload UX, and result-download flow. | `TBD` |
-| Worker Engineer | Maintain the Web Worker conversion path, transferable buffer handling, same-thread fallback, and static-hosting compatibility. | `TBD` |
-| QA and Release Steward | Maintain test coverage, manual ORCID verification workflow, static deploy readiness, and public-release checklist. | `TBD` |
-| Codex Session Agent | Execute implementation, refactors, tests, and documentation updates against the repository rules captured here. | Current Codex session |
+| Agent                  | Responsibility                                                                                                                            | Contact               |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| Product Steward        | Own product scope, interoperability goals, public release criteria, and scientific workflow alignment with Lattes, ORCID, and WoS.        | `TBD`                 |
+| Parser Engineer        | Maintain browser-side XML normalization, bibliographic extraction, BibTeX mapping, citekey generation, and client conversion contracts.   | `TBD`                 |
+| Privacy Steward        | Keep fixtures sanitized, prevent raw file persistence, review offline processing guarantees, and enforce the no-cookie/no-backend policy. | `TBD`                 |
+| UI Engineer            | Maintain the React 18 + Vite application shell, accessibility, responsive layout, upload UX, and result-download flow.                    | `TBD`                 |
+| Worker Engineer        | Maintain the Web Worker conversion path, transferable buffer handling, same-thread fallback, and static-hosting compatibility.            | `TBD`                 |
+| QA and Release Steward | Maintain test coverage, manual ORCID verification workflow, static deploy readiness, and public-release checklist.                        | `TBD`                 |
+| Codex Session Agent    | Execute implementation, refactors, tests, and documentation updates against the repository rules captured here.                           | Current Codex session |
 
 ## Working Agreements
 
