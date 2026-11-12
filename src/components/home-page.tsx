@@ -127,29 +127,56 @@ export function HomePage() {
         </HeroGrid>
       </HeroSection>
 
-      <IndependenceNotice aria-labelledby="independence-heading">
-        <h2 id="independence-heading">Projeto independente, gratuito e de código aberto</h2>
-        <p>
-          A versão pública do <strong>Lattes2ORCID</strong> é mantida pela Cecil-IA Labs
-          e está disponível gratuitamente em{" "}
-          <a href="https://cecil-ia-labs.github.io/lattes2orcid/">cecil-ia-labs.github.io/lattes2orcid</a>.
-          <strong> Não temos qualquer parceria ou vínculo com </strong>
-          <a href="https://www.lattes2orcid.xyz/" target="_blank" rel="nofollow noopener noreferrer">lattes2orcid.xyz</a>
-          <strong> e não solicitamos doações por Pix neste momento.</strong>
-        </p>
-        <p>
-          Nossa licença MIT permite versões independentes, inclusive comerciais,
-          mediante preservação dos avisos de copyright e licença. O reconhecimento
-          da autoria e das fontes, para além dessas obrigações legais, é fundamental
-          para a ciência aberta.
-        </p>
-        <p>
-          <strong>Privacidade:</strong> o XML exportado pelo Lattes/CNPq pode conter dados
-          pessoais. Avalie as políticas de qualquer serviço antes de compartilhar esse arquivo.
-          Não estamos afirmando que o serviço citado acima utilize dados indevidamente.
-          <strong> Aqui, o XML é convertido inteiramente no navegador, sem ser enviado aos nossos servidores.</strong>
-        </p>
-        <p><a href="https://github.com/cecil-ia-labs/lattes2orcid" target="_blank" rel="noopener noreferrer">Consultar código-fonte e licença MIT ↗</a></p>
+      <IndependenceNotice open>
+        <NoticeHeader>
+          <span className="notice-heading">Projeto aberto e cuidados com seus dados</span>
+          <span className="notice-action notice-action-expanded" aria-hidden="true">Recolher −</span>
+          <span className="notice-action notice-action-collapsed" aria-hidden="true">Expandir +</span>
+        </NoticeHeader>
+        <NoticeContent>
+          <p>
+            O <strong>Lattes2ORCID</strong> é um projeto público e gratuito da Cecil-IA Labs.
+            A versão mantida por nosso laboratório está disponível em{" "}
+            <a href="https://cecil-ia-labs.github.io/lattes2orcid/">
+              cecil-ia-labs.github.io/lattes2orcid
+            </a>.
+          </p>
+          <p>
+            Não temos vínculo com o site{" "}
+            <a
+              href="https://www.lattes2orcid.xyz/"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
+              lattes2orcid.xyz
+            </a>. Como o projeto é distribuído sob licença MIT, outras pessoas
+            podem criar e modificar suas próprias versões, inclusive para uso comercial,
+            desde que preservem os avisos de copyright e licença. Também valorizamos
+            o reconhecimento dos autores e das fontes, essencial à ciência aberta.
+            Atualmente, não solicitamos doações via Pix.
+          </p>
+          <p>
+            <strong>Um cuidado com sua privacidade:</strong> o XML exportado da
+            Plataforma Lattes pode conter dados pessoais do pesquisador.
+            Antes de enviar esse arquivo a qualquer serviço, vale consultar sua
+            política de privacidade e entender como os dados serão tratados.
+            Esta é uma orientação geral: não estamos sugerindo que o serviço citado
+            faça uso indevido dessas informações.
+          </p>
+          <p>
+            Na <strong>versão pública desta aplicação</strong>, a conversão ocorre
+            inteiramente no navegador, sem envio do XML aos nossos servidores.
+          </p>
+          <p>
+            <a
+              href="https://github.com/cecil-ia-labs/lattes2orcid"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Conheça o código-fonte e a licença MIT ↗
+            </a>
+          </p>
+        </NoticeContent>
       </IndependenceNotice>
 
       <ContentGrid>
@@ -307,20 +334,99 @@ export function HomePage() {
   );
 }
 
-const IndependenceNotice = styled.section`
+const IndependenceNotice = styled.details`
   margin-top: 24px;
-  padding: 22px 26px;
-  border: 1px solid rgba(15, 118, 110, 0.25);
-  border-radius: 18px;
-  background: #effaf7;
-  color: #24353b;
-  line-height: 1.65;
+  width: 100%;
+  padding: 16px 20px;
+  border: 1px solid rgba(34, 87, 86, 0.13);
+  border-radius: 16px;
+  background: rgba(248, 251, 250, 0.91);
+  color: ({ theme }) => theme.colors.ink;
 
-  h2 { font-size: 1.18rem; line-height: 1.35; margin: 0 0 12px; }
-  p { margin: 0 0 10px; max-width: 100ch; }
-  p:last-child { margin-bottom: 0; }
-  a { color: #0a6862; text-decoration: underline; text-underline-offset: 3px; }
-  a:focus-visible { outline: 3px solid #0f766e; outline-offset: 3px; }
+  @media (max-width: 640px) {
+    padding: 14px 16px;
+  }
+
+  &[open] .notice-action-collapsed {
+    display: none;
+  }
+
+  &:not([open]) .notice-action-expanded {
+    display: none;
+  }
+`;
+
+const NoticeHeader = styled.summary`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  list-style: none;
+  cursor: pointer;
+  border-radius: 6px;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(15, 118, 110, 0.35);
+    outline-offset: 5px;
+  }
+
+  .notice-heading {
+    min-width: 0;
+    font-family: var(--font-heading), sans-serif;
+    font-size: 1.04rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .notice-action {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    border: 1px solid rgba(34, 87, 86, 0.16);
+    border-radius: 999px;
+    color: #486365;
+    font-family: var(--font-heading), sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.62);
+  }
+`;
+
+const NoticeContent = styled.div`
+  display: grid;
+  gap: 11px;
+  width: 100%;
+  padding-top: 14px;
+  font-size: 0.96rem;
+  line-height: 1.67;
+  color: #405257;
+
+  p {
+    margin: 0;
+    width: 100%;
+    max-width: none;
+  }
+
+  strong {
+    font-weight: 600;
+    color: #273a3e;
+  }
+
+  a {
+    color: #0b6f69;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+
+  a:focus-visible {
+    outline: 3px solid rgba(15, 118, 110, 0.35);
+    outline-offset: 3px;
+  }
 `;
 
 const PageShell = styled.main`
