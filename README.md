@@ -1,130 +1,46 @@
-# Lattes2BibTeX
+# Lattes2ORCID · Lattes XML to BibTeX, privately
 
-Webtool em `React 18 + Vite` para converter o XML da Plataforma Lattes em `BibTeX` diretamente no navegador, com foco em privacidade, interoperabilidade acadêmica e importação posterior no ORCID.
+**Languages:** **English** · [Português (Brasil)](README.pt-BR.md) · [Italiano](README.it.md)
 
-## Objetivo
+**Move your academic publications from Plataforma Lattes to ORCID — without uploading your entire CV.**
 
-O Lattes exporta o currículo em XML, mas não oferece um fluxo direto de exportação bibliográfica para serviços como ORCID e Web of Science. Este projeto usa o `BibTeX` como formato intermediário para diminuir a fricção entre essas plataformas sem exigir backend.
+[Lattes2ORCID](https://cecil-ia-labs.github.io/lattes2orcid/) is an independent, free and open-source application by **[Cecil-IA Labs](https://www.cecilialabs.com/)**. It transforms the bibliography contained in an XML export from Brazil's Plataforma Lattes into a BibTeX file for review and later import into ORCID.
 
-## Escopo do v1
+**[Open the converter](https://cecil-ia-labs.github.io/lattes2orcid/)** · **[Explore the source](https://github.com/cecil-ia-labs/lattes2orcid)** · **[About Cecil-IA Labs](https://www.cecilialabs.com/)**
 
-- Conversão `Lattes XML -> BibTeX`
-- Processamento 100% client-side
-- Interface web única para upload, conversão e download
-- `Web Worker` como caminho padrão de conversão, com fallback local no main thread
-- Cobertura de todos os ramos atuais de `PRODUCAO-BIBLIOGRAFICA` do XSD local
-- Sem cookies, sem autenticação, sem banco de dados e sem persistência de uploads
+## How it works
 
-## Mapeamento bibliográfico
+1. Export a copy of your CV in **XML** format from Plataforma Lattes.
+2. Open our official public application and select the XML file.
+3. Review the conversion summary and download your **.bib** file.
+4. Check your bibliographic entries before importing them into ORCID.
 
-- `TRABALHO-EM-EVENTOS` -> `@inproceedings`
-- `ARTIGO-PUBLICADO` -> `@article`
-- `ARTIGO-ACEITO-PARA-PUBLICACAO` -> `@unpublished`
-- `LIVRO-PUBLICADO-OU-ORGANIZADO` -> `@book`
-- `CAPITULO-DE-LIVRO-PUBLICADO` -> `@incollection`
-- `TEXTO-EM-JORNAL-OU-REVISTA` -> `@article`
-- `OUTRA-PRODUCAO-BIBLIOGRAFICA`, `PARTITURA-MUSICAL`, `PREFACIO-POSFACIO` e `TRADUCAO` -> `@misc`
+**Your XML stays in your browser.** The public XML → BibTeX converter operates locally and does not upload the Lattes file to our servers. The conversion itself does not require registration, cookies, or a backend.
 
-Quando um campo do Lattes não possui equivalente limpo em BibTeX, o valor é preservado em `note`, `keywords` ou em metadados internos do pipeline para não ser descartado silenciosamente.
+## An independent open-source project
 
-## Modelo de privacidade
+**We have no affiliation, partnership, or other relationship with [lattes2orcid.xyz](https://www.lattes2orcid.xyz/). We do not currently request donations via Pix.** The official public application maintained by Cecil-IA Labs is linked above.
 
-- O arquivo XML é processado localmente no navegador.
-- O arquivo não é enviado para servidor.
-- Não há banco de dados.
-- Não há armazenamento persistente do XML enviado nem do BibTeX gerado.
-- Não há cookies.
-- O limite padrão de upload é `25 MB`.
-- O repositório mantém apenas fixtures sanitizados.
+Our code is released under the **[MIT License](LICENSE)**. Anyone may use, study, copy, modify, redistribute, or create their own version, **including commercial versions**, as long as the required copyright and license notices are retained. Beyond these legal requirements, we encourage **acknowledgement of original authors and sources**: giving credit is a foundation of open science.
 
-## Como usar
+### A note on privacy
 
-1. Exporte o currículo em XML na Plataforma Lattes.
-2. Abra a aplicação e envie o arquivo `.xml`.
-3. Aguarde a conversão e revise o resumo por categoria e os avisos gerados.
-4. Baixe o `.bib`.
-5. Importe o BibTeX na seção de trabalhos do ORCID.
+A Lattes/CNPq XML export can contain extensive personal information about a researcher. Before submitting that document to any third-party service, check its privacy policy and understand how your information will be handled. **We are not suggesting that the service named above misuses personal data.**
 
-## Desenvolvimento local
+In our publicly released converter, the XML is processed entirely in your browser and is not sent to our servers. You retain control over the original file and the BibTeX result.
 
-```bash
-npm install
-npm run dev
-```
+## Scope and limitations
 
-Aplicação em desenvolvimento: `http://127.0.0.1:5173/lattes2orcid/`
+The public version converts the **bibliographic-production sections** of the Lattes CV into BibTeX. Importing records into ORCID remains a manual process, and other CV sections are not included. Always review the output and retain a copy of your original XML.
 
-### Scripts úteis
+A separate **v2 experiment is in development and has not been released publicly**.
 
-```bash
-npm run lint
-npm run typecheck
-npm run test:unit
-npm run test:e2e
-npm run build
-npm run preview
-npm run sanitize:fixture
-```
+Lattes2ORCID is **not an official CNPq, Plataforma Lattes, or ORCID service**. This software is provided without warranty under the MIT License.
 
-## Deploy estático
+## Contribute to open science
 
-- Alvo padrão: `GitHub Pages`
-- Base path: `/lattes2orcid/`
-- O build gerado em `dist/` é próprio para hospedagem estática
-- O deploy está configurado em `.github/workflows/deploy-pages.yml`
-- Todo push em `main` publica automaticamente a versão estática no GitHub Pages
+Read the [source code](https://github.com/cecil-ia-labs/lattes2orcid), report a problem in [Issues](https://github.com/cecil-ia-labs/lattes2orcid/issues), and contribute under the project's license. For implementation details, tests, and maintenance notes, see the [technical documentation](docs/TECHNICAL.pt-BR.md).
 
-## Estrutura principal
+---
 
-- `src/components/` : interface e tema visual
-- `src/lib/lattes/` : decode, parsing DOM, extração, mapeamento, serialização, worker e sanitização
-- `fixtures/lattes/` : fixture real sanitizado e fixtures sintéticos
-- `assets/` : XSD e DTD de referência do Lattes
-- `.codex/skills/` : skills locais para schema mapping, BibTeX, sanitização, DOM XML e worker
-- `AGENTS.md` : responsabilidades dos agentes do projeto
-
-## Fixtures e dados sensíveis
-
-- O fixture público principal está em `fixtures/lattes/real/sanitized-lattes.xml`.
-- Fixtures sintéticos complementam categorias não presentes no XML real sanitizado.
-- O script `npm run sanitize:fixture` existe apenas para manutenção offline de fixtures.
-
-## Validação e testes
-
-A suíte atual cobre:
-
-- parsing e serialização BibTeX sem parser externo
-- categorias bibliográficas do XSD
-- normalização de encoding `ISO-8859-1`
-- colisões de citekey e identificadores duplicados
-- erros de XML inválido, raiz incorreta, ausência de produção bibliográfica e upload grande
-- caminho via `Web Worker` e fallback local
-- fluxo E2E de upload, erro de validação, conversão e renderização de avisos
-
-## Status do fluxo ORCID
-
-- Verificação manual com uma conta ORCID descartável: `OK`
-- Verificação manual com uma conta ORCID real: `OK`
-
-Mesmo com o parser e os testes automatizados estáveis, a aceitação final do projeto depende dessa validação manual do fluxo real de importação.
-
-## Licença e isenção de responsabilidade
-
-Este projeto é distribuído sob a licença `MIT`. Em termos práticos:
-
-- o software é gratuito e open-source
-- o uso acontece por conta e risco de quem o utiliza
-- não há qualquer garantia de funcionamento contínuo, precisão total dos dados convertidos ou adequação a um caso específico
-- os mantenedores não se responsabilizam por perda de dados, falhas de importação, inconsistências bibliográficas, indisponibilidade, danos diretos ou indiretos, ou qualquer consequência decorrente do uso do software
-
-Antes de importar dados em qualquer plataforma, mantenha uma cópia do XML original, revise o `BibTeX` gerado e valide manualmente os registros mais sensíveis.
-
-## Limitações atuais
-
-### To-do:
-
-- [ ] `BibTeX -> Lattes XML` ainda não faz parte do v1.
-- [ ] O upload aceita apenas XML bruto, não ZIP.
-- [ ] A cobertura bibliográfica é guiada pelo XSD local versionado no repositório.
-- [ ] No momento, a única seção que pode ser importada para o ORCID é o BibTeX com os dados das publicações e artigos, enquanto as demais do XML ainda não são suportadas e podem ser igualmente extensas e tediosas, como formação acadêmica, experiência profissional, orientações, participações em eventos, prêmios e títulos.
-- [ ] O fluxo de importação para o ORCID continua manual: o usuário baixa o BibTeX e importa na plataforma do ORCID, onde ainda pode haver ajustes manuais de parsing ou mapeamento.
+**Cecil-IA Labs** · [Institutional website](https://www.cecilialabs.com/) · [Open Source Observatory](https://cecil-ia-labs.github.io/)
