@@ -104,10 +104,10 @@ export function HomePage() {
           <HeroText>
             <HeroTitle>Lattes 2 ORCID</HeroTitle>
             <HeroLead>
-              Converta seus artigos e publicações da Plataforma Lattes para o ORCID de forma rápida, prática e totalmente segura.
+              Converta seus artigos e publicações da Plataforma Lattes para o ORCID de forma prática e sem enviar seu arquivo XML para servidores.
             </HeroLead>
             <HeroCopy>
-              Envie o XML, gere o arquivo e siga em frente. Nada de copiar
+              Selecione o XML, gere o arquivo e siga em frente. Nada de copiar
               referência por referência. O processamento acontece sem cookies e
               sem guardar o conteúdo após a conversão.
             </HeroCopy>
@@ -116,11 +116,11 @@ export function HomePage() {
             <HeroCardTitle>Como funciona</HeroCardTitle>
             <InstructionList>
               <li>Baixe o XML do seu currículo na Plataforma Lattes.</li>
-              <li>Envie o arquivo aqui.</li>
+              <li>Selecione o arquivo nesta página.</li>
               <li>Baixe o `.bib` e importe no ORCID.</li>
             </InstructionList>
             <PrivacyNote>
-              Upload de até <strong>25 MB</strong>. O arquivo existe só durante
+              Arquivo de até <strong>25 MB</strong>. O conteúdo existe só durante
               a conversão.
             </PrivacyNote>
           </HeroCard>
@@ -154,7 +154,7 @@ export function HomePage() {
 
       <ContentGrid>
         <ConverterCard>
-          <SectionTitle>Enviar currículo</SectionTitle>
+          <SectionTitle>Selecionar currículo</SectionTitle>
           <SectionText>
             Use o XML exportado pelo Lattes. A ferramenta valida a estrutura,
             extrai a produção bibliográfica e devolve um BibTeX pronto para
