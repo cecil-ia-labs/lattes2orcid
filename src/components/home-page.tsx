@@ -127,6 +127,31 @@ export function HomePage() {
         </HeroGrid>
       </HeroSection>
 
+      <IndependenceNotice aria-labelledby="independence-heading">
+        <h2 id="independence-heading">Projeto independente, gratuito e de código aberto</h2>
+        <p>
+          A versão pública do <strong>Lattes2ORCID</strong> é mantida pela Cecil-IA Labs
+          e está disponível gratuitamente em{" "}
+          <a href="https://cecil-ia-labs.github.io/lattes2orcid/">cecil-ia-labs.github.io/lattes2orcid</a>.
+          <strong> Não temos qualquer parceria ou vínculo com </strong>
+          <a href="https://www.lattes2orcid.xyz/" target="_blank" rel="noopener noreferrer">lattes2orcid.xyz</a>
+          <strong> e não solicitamos doações por Pix neste momento.</strong>
+        </p>
+        <p>
+          Nossa licença MIT permite versões independentes, inclusive comerciais,
+          mediante preservação dos avisos de copyright e licença. O reconhecimento
+          da autoria e das fontes, para além dessas obrigações legais, é fundamental
+          para a ciência aberta.
+        </p>
+        <p>
+          <strong>Privacidade:</strong> o XML exportado pelo Lattes/CNPq pode conter dados
+          pessoais. Avalie as políticas de qualquer serviço antes de compartilhar esse arquivo.
+          Não estamos afirmando que o serviço citado acima utilize dados indevidamente.
+          <strong> Aqui, o XML é convertido inteiramente no navegador, sem ser enviado aos nossos servidores.</strong>
+        </p>
+        <p><a href="https://github.com/cecil-ia-labs/lattes2orcid" target="_blank" rel="noopener noreferrer">Consultar código-fonte e licença MIT ↗</a></p>
+      </IndependenceNotice>
+
       <ContentGrid>
         <ConverterCard>
           <SectionTitle>Enviar currículo</SectionTitle>
@@ -281,6 +306,22 @@ export function HomePage() {
     </PageShell>
   );
 }
+
+const IndependenceNotice = styled.section`
+  margin-top: 24px;
+  padding: 22px 26px;
+  border: 1px solid rgba(15, 118, 110, 0.25);
+  border-radius: 18px;
+  background: #effaf7;
+  color: #24353b;
+  line-height: 1.65;
+
+  h2 { font-size: 1.18rem; line-height: 1.35; margin: 0 0 12px; }
+  p { margin: 0 0 10px; max-width: 100ch; }
+  p:last-child { margin-bottom: 0; }
+  a { color: #0a6862; text-decoration: underline; text-underline-offset: 3px; }
+  a:focus-visible { outline: 3px solid #0f766e; outline-offset: 3px; }
+`;
 
 const PageShell = styled.main`
   width: min(1180px, calc(100% - 32px));
