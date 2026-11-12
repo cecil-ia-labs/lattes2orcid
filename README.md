@@ -1,6 +1,6 @@
 # Lattes2ORCID · Lattes XML to BibTeX, privately
 
-**Languages:** **English** · [Português (Brasil)](README.pt-BR.md) · [Italiano](README.it.md)
+**Languages:** [English](README.md) · [Português (Brasil)](README.pt-BR.md) · [Italiano](README.it.md)
 
 **Move your academic publications from Plataforma Lattes to ORCID — without uploading your entire CV.**
 
