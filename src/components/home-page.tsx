@@ -134,7 +134,7 @@ export function HomePage() {
           e está disponível gratuitamente em{" "}
           <a href="https://cecil-ia-labs.github.io/lattes2orcid/">cecil-ia-labs.github.io/lattes2orcid</a>.
           <strong> Não temos qualquer parceria ou vínculo com </strong>
-          <a href="https://www.lattes2orcid.xyz/" target="_blank" rel="noopener noreferrer">lattes2orcid.xyz</a>
+          <a href="https://www.lattes2orcid.xyz/" target="_blank" rel="nofollow noopener noreferrer">lattes2orcid.xyz</a>
           <strong> e não solicitamos doações por Pix neste momento.</strong>
         </p>
         <p>
